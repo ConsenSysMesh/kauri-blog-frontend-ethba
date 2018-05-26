@@ -17,11 +17,12 @@ import Typography from '@material-ui/core/Typography'
 import red from '@material-ui/core/colors/red'
 import blue from '@material-ui/core/colors/blue'
 import styled from 'styled-components'
-// import Comments from './Comments'
+import Comments from './Comments'
 
 const styles = theme => ({
   card: {
-    height: '100%'
+    overflowY: 'scroll',
+    height: '100vh'
   },
   media: {
     height: 0,
@@ -127,7 +128,7 @@ const PostCard = ({ classes, id }) => (
         <ShareIcon />
       </IconButton>
     </CardActions>
-    {/* <Comments /> */}
+    <Comments />
   </Card>
 )
 
