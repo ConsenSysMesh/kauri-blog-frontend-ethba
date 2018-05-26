@@ -12,10 +12,10 @@ export default [
     })
   },
   {
-    path: '/about/:id',
+    path: '/blogpost/:id',
     exact: true,
     component: asyncComponent({
-      loader: () => import('./About'), // required
+      loader: () => import('./BlogPost'), // required
       Placeholder: () => <div>...LOADING...</div> // this is optional, just returns null by default
     })
   }

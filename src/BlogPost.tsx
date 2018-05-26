@@ -12,19 +12,21 @@ import CardActions from '@material-ui/core/CardActions'
 import Collapse from '@material-ui/core/Collapse'
 import Avatar from '@material-ui/core/Avatar'
 import IconButton from '@material-ui/core/IconButton'
+import ShareIcon from '@material-ui/icons/Share'
 import Typography from '@material-ui/core/Typography'
 import red from '@material-ui/core/colors/red'
-import FavoriteIcon from '@material-ui/icons/Favorite'
-import ShareIcon from '@material-ui/icons/Share'
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import MoreVertIcon from '@material-ui/icons/MoreVert'
+import blue from '@material-ui/core/colors/blue'
 import styled from 'styled-components'
+// import Comments from './Comments'
 
 const styles = theme => ({
-  card: {},
+  card: {
+    height: '100%'
+  },
   media: {
     height: 0,
-    paddingTop: '56.25%' // 16:9
+    paddingTop: '56.25%', // 16:9
+    margin: '20px 0'
   },
   actions: {
     display: 'flex'
@@ -50,6 +52,10 @@ const styles = theme => ({
   },
   date: {
     textAlign: 'left'
+  },
+  share: {
+    marginLeft: 'auto',
+    color: '#1976d2'
   }
 })
 
@@ -92,20 +98,36 @@ const PostCard = ({ classes, id }) => (
       action={<IconButton />}
       title={
         <Typography variant="headline" component="h2" className={classes.headline}>
-          Headline
+          Headline 5
         </Typography>
       }
       subheader={<Date>01/02/2018</Date>}
     />
     <CardContent>
       <Typography className={classes.shortContent} component="p">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Provident cupiditate quasi non quibusdam quisquam
+        reprehenderit nulla alias similique! Corporis quia voluptatem vel maxime ipsa sequi ipsum doloremque tempora
+        quisquam ducimus.
+      </Typography>
+      <CardMedia
+        className={classes.media}
+        image=" https://material-ui.com/static/images/cards/contemplative-reptile.jpg"
+        title="Contemplative Reptile"
+      />
+      <Typography className={classes.shortContent} component="p">
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Provident cupiditate quasi non quibusdam quisquam
+        reprehenderit nulla alias similique! Corporis quia voluptatem vel maxime ipsa sequi ipsum doloremque tempora
+        quisquam ducimus.
       </Typography>
     </CardContent>
     <CardActions>
-      <ViewLink to={`/post/${id}`}>View Post</ViewLink>
+      <ViewLink to={`/post/${id}`}>Tip Post</ViewLink>
       <ViewLink to={`/post/${id}`}>View Profile</ViewLink>
+      <IconButton className={classes.share} aria-label="Share">
+        <ShareIcon />
+      </IconButton>
     </CardActions>
+    {/* <Comments /> */}
   </Card>
 )
 
