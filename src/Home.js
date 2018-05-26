@@ -2,7 +2,7 @@ import React from 'react'
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 import logo from './react.svg'
-// import Lol from './Home.tsx'
+import Lol from './Home.tsx'
 import './Home.css'
 import { Link } from 'react-router-dom'
 
@@ -22,7 +22,6 @@ function Home(props) {
   return (
     <div className="Home">
       <div className="Home-header">
-        {/* <Lol /> */}
         <img src={logo} className="Home-logo" alt="logo" />
         <h2>Welcome to After.js with Apollo</h2>
       </div>
@@ -38,6 +37,7 @@ function Home(props) {
         )}
       </div>
       <Link to="/about">About -></Link>
+      <Lol />
     </div>
   )
 }
