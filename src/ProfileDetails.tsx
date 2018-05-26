@@ -20,6 +20,7 @@ const Container = styled.section`
   > :first-child {
     margin-bottom: 10px;
   }
+  margin-bottom: ${props => props.type === 'profile' && '20px'};
 `
 
 const Address = styled.span`
@@ -34,8 +35,8 @@ const Address = styled.span`
   word-wrap: break-word;
 `
 
-const Posts = ({ classes, id }) => (
-  <Container className={classes.card}>
+const Posts = ({ classes, type }) => (
+  <Container className={classes.card} type={type}>
     <Avatar aria-label="Recipe" className={classes.avatar}>
       B
     </Avatar>

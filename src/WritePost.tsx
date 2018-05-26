@@ -94,9 +94,9 @@ const Container = styled.section`
   flex-direction: column;
 `
 
-const Profile = ({ classes, id }) => (
+const Profile = ({ classes }) => (
   <Container className={classes.card}>
-    <ProfileDetails type="profile" />
+    <ProfileDetails />
     <Posts />
   </Container>
 )
