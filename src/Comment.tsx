@@ -4,11 +4,16 @@ import { withStyles } from '@material-ui/core/styles'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import Divider from '@material-ui/core/Divider'
-import Comment from './Comment'
+import blue from '@material-ui/core/colors/blue'
+import Avatar from '@material-ui/core/Avatar'
 
 const styles = {
   divider: {
-    margin: '10px 0'
+    margin: '8px 0',
+    marginLeft: 55
+  },
+  avatar: {
+    backgroundColor: blue[500]
   }
 }
 
@@ -34,7 +39,6 @@ const CommentsContainer = styled.section`
   display: flex;
   width: 100%;
   flex-direction: column;
-  padding: 16px;
 `
 
 const CommentsHeader = styled.section`
@@ -42,14 +46,8 @@ const CommentsHeader = styled.section`
   width: 100%;
   flex-direction: row;
   > :first-child {
-    margin-right: auto;
+    margin-right: 15px;
   }
-`
-
-const CommentsList = styled.section`
-  display: flex;
-  width: 100%;
-  flex-direction: column;
 `
 
 const CommentsHeaderTitle = styled.span`
@@ -61,27 +59,23 @@ const CommentsHeaderTitle = styled.span`
   line-height: 24px;
 `
 
-const NumberOfComments = styled.span`
-  /* Caption: */
-  font-family: Roboto-Regular;
-  font-size: 12px;
-  color: rgba(0, 0, 0, 0.87);
-  letter-spacing: 0.4px;
-  text-align: right;
-  line-height: 16px;
+const CommentText = styled.span`
+  color: rgba(0, 0, 0, 0.6);
+  font-family: Roboto;
+  font-size: 14px;
+  letter-spacing: 0.25px;
+  line-height: 20px;
 `
 
 const Comments = ({ classes, id }) => (
   <CommentsContainer>
     <CommentsHeader>
-      <CommentsHeaderTitle>Comments</CommentsHeaderTitle>
-      <NumberOfComments>4</NumberOfComments>
+      <Avatar aria-label="Recipe" className={classes.avatar}>
+        B
+      </Avatar>
+      <CommentText>Greyhound divisively hello coldly wonderfully marginally far...</CommentText>
     </CommentsHeader>
     <Divider className={classes.divider} />
-    <CommentsList>
-      <Comment />
-      <Comment />
-    </CommentsList>
   </CommentsContainer>
 )
 

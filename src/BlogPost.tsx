@@ -21,7 +21,6 @@ import Comments from './Comments'
 
 const styles = theme => ({
   card: {
-    overflowY: 'scroll',
     height: '100vh'
   },
   media: {
