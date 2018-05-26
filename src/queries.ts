@@ -1,11 +1,10 @@
 import gql from 'graphql-tag'
 
-export const AllFilms = gql`
-  query AllFilms {
-    allFilms {
-      films {
+export const searchBlogPost = gql`
+  query searchBlogPost {
+    searchBlogPost {
+      content {
         id
-        title
       }
     }
   }
