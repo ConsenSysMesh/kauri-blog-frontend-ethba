@@ -18,6 +18,7 @@ import red from '@material-ui/core/colors/red'
 import blue from '@material-ui/core/colors/blue'
 import styled from 'styled-components'
 import Posts from './Posts'
+import ProfileDetails from './ProfileDetails'
 
 const styles = theme => ({
   card: {
@@ -95,6 +96,7 @@ const Container = styled.section`
 
 const Profile = ({ classes, id }) => (
   <Container className={classes.card}>
+    <ProfileDetails />
     <Posts />
   </Container>
 )
