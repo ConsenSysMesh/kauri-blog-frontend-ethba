@@ -9,6 +9,7 @@ import AddIcon from '@material-ui/icons/Add'
 import { Link } from 'react-router-dom'
 import { AllFilms } from './queries'
 import './Home.css'
+import { AllFilmsQuery } from './__generated__/types'
 
 const styles: StyleRulesCallback<'button'> = theme => ({
   root: {
@@ -23,14 +24,19 @@ const styles: StyleRulesCallback<'button'> = theme => ({
   }
 })
 
+class AllFilmsComponent extends Query<AllFilmsQuery> {}
+
 class Home extends React.Component<WithStyles<'button'>, {}> {
   public render() {
     const { classes } = this.props
     return (
-      <Query query={AllFilms}>
+      <AllFilmsComponent query={AllFilms}>
         {({ data, loading, error }) => {
           if (loading) return <p>loading...</p>
           if (error) return <p>Error</p>
+          if (!data) return <p>No data</p>
+
+          const { allFilms } = data
           return (
             <div className="Home">
               <div className="Home-header">
@@ -41,12 +47,23 @@ class Home extends React.Component<WithStyles<'button'>, {}> {
                   <AddIcon />
                 </Button>
               </div>
-              <div className="Home-intro" />
+              <div className="Home-intro">
+                {allFilms &&
+                  allFilms.films &&
+                  allFilms.films.map(
+                    film =>
+                      film && (
+                        <Link key={film.id} to={`/${film.id}`}>
+                          {film.title}
+                        </Link>
+                      )
+                  )}
+              </div>
               <Link to="/about">About -></Link>
             </div>
           )
         }}
-      </Query>
+      </AllFilmsComponent>
     )
   }
 }
