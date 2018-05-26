@@ -2,9 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import classnames from 'classnames'
+import Button from '@material-ui/core/Button'
 import Card from '@material-ui/core/Card'
 import CardHeader from '@material-ui/core/CardHeader'
 import CardMedia from '@material-ui/core/CardMedia'
+import { Link } from 'react-router-dom'
 import CardContent from '@material-ui/core/CardContent'
 import CardActions from '@material-ui/core/CardActions'
 import Collapse from '@material-ui/core/Collapse'
@@ -16,6 +18,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite'
 import ShareIcon from '@material-ui/icons/Share'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import MoreVertIcon from '@material-ui/icons/MoreVert'
+import styled from 'styled-components'
 
 const styles = theme => ({
   card: {
@@ -40,32 +43,58 @@ const styles = theme => ({
   },
   avatar: {
     backgroundColor: red[500]
+  },
+  shortContent: {
+    textAlign: 'left'
+  },
+  headline: {
+    textAlign: 'left'
+  },
+  date: {
+    textAlign: 'left'
   }
 })
 
-const PostCard = ({ classes }) => (
+const Date = styled(Typography)`
+  font-family: Roboto-Medium;
+  font-size: 14px;
+  color: #1976d2;
+  letter-spacing: 1.25px;
+  text-align: center;
+  line-height: 16px;
+`
+
+const PostCard = ({ classes, id }) => (
   <Card className={classes.card}>
     <CardHeader
       avatar={
         <Avatar aria-label="Recipe" className={classes.avatar}>
-          R
+          A
         </Avatar>
       }
-      action={
-        <IconButton>
-          <MoreVertIcon />
-        </IconButton>
+      action={<IconButton />}
+      title={
+        <Typography variant="headline" component="h2" className={classes.headline}>
+          Headline
+        </Typography>
       }
-      title="Shrimp and Chorizo Paella"
-      subheader="September 14, 2016"
+      subheader={
+        <Typography component="p" className={classes.date}>
+          May 26, 2018
+        </Typography>
+      }
     />
-    <CardMedia className={classes.media} image="/static/images/cards/paella.jpg" title="Contemplative Reptile" />
     <CardContent>
-      <Typography component="p">
-        This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of
-        frozen peas along with the mussels, if you like.
+      <Typography className={classes.shortContent} component="p">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit.
       </Typography>
     </CardContent>
+    <CardActions>
+      <Link to={`/post/${id}`}>View Post</Link>
+      <Link to={`/post/${id}`} size="small" color="primary">
+        View Profile
+      </Link>
+    </CardActions>
   </Card>
 )
 
