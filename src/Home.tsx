@@ -7,8 +7,8 @@ import withStyles, { WithStyles, StyleRulesCallback } from '@material-ui/core/st
 import Button from '@material-ui/core/Button'
 import AddIcon from '@material-ui/icons/Add'
 import { Link } from 'react-router-dom'
-import { AllFilms } from './queries'
-import { AllFilmsQuery } from './__generated__/types'
+import { searchBlogPost } from './queries'
+import { searchBlogPostQuery } from './__generated__/types'
 import './Home.css'
 
 const styles: StyleRulesCallback<'button'> = theme => ({
@@ -24,19 +24,19 @@ const styles: StyleRulesCallback<'button'> = theme => ({
   }
 })
 
-class AllFilmsComponent extends Query<AllFilmsQuery> {}
+class SearchBlogPostComponent extends Query<searchBlogPostQuery> {}
 
 class Home extends React.Component<WithStyles<'button'>, {}> {
   public render() {
     const { classes } = this.props
     return (
-      <AllFilmsComponent query={AllFilms}>
+      <SearchBlogPostComponent query={searchBlogPost}>
         {({ data, loading, error }) => {
           if (loading) return <p>loading...</p>
           if (error) return <p>Error</p>
           if (!data) return <p>No data</p>
 
-          const { allFilms } = data
+          const { searchBlogPost } = data
           return (
             <div className="Home">
               <div className="Home-header">
@@ -48,13 +48,14 @@ class Home extends React.Component<WithStyles<'button'>, {}> {
                 </Button>
               </div>
               <div className="Home-intro">
-                {allFilms &&
-                  allFilms.films &&
-                  allFilms.films.map(
-                    (film, i) =>
-                      film && (
-                        <div key={film.id}>
-                          <Link to={`/about/${i + 1}`}>{film.title}</Link>
+                {searchBlogPost &&
+                  searchBlogPost.content &&
+                  searchBlogPost.content.map(
+                    (blogPost, i) =>
+                      blogPost && (
+                        <div key={blogPost.id}>
+                          Hello
+                          {/* <Link to={`/about/${i + 1}`}>{blogPost.title}</Link> */}
                         </div>
                       )
                   )}
@@ -63,7 +64,7 @@ class Home extends React.Component<WithStyles<'button'>, {}> {
             </div>
           )
         }}
-      </AllFilmsComponent>
+      </SearchBlogPostComponent>
     )
   }
 }
