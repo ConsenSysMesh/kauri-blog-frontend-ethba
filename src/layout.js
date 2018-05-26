@@ -89,7 +89,6 @@ class Layout extends React.Component {
     this.state = {
       drawerOpen: false
     }
-    this.toggleDrawer = this.toggleDrawer.bind(this)
   }
 
   componentDidMount() {
@@ -102,9 +101,8 @@ class Layout extends React.Component {
     })
   }
 
-  toggleDrawer() {
-    console.log('heuy')
-    this.setState({ drawerOpen: !this.state.drawerOpen })
+  toggleDrawer = open => {
+    open ? this.setState({ drawerOpen: open }) : this.setState({ drawerOpen: !this.state.drawerOpen })
   }
 
   render() {
@@ -120,7 +118,12 @@ class Layout extends React.Component {
         <CssBaseline />
         <AppBar position="absolute" className={classNames(classes.appBar)}>
           <Toolbar>
-            <IconButton className={classes.menuButton} color="inherit" aria-label="Menu" onClick={this.toggleDrawer}>
+            <IconButton
+              className={classes.menuButton}
+              color="inherit"
+              aria-label="Menu"
+              onClick={() => this.toggleDrawer()}
+            >
               <Menu />
             </IconButton>
             <Typography variant="title" color="inherit" className={classes.flex}>
@@ -130,25 +133,32 @@ class Layout extends React.Component {
           </Toolbar>
         </AppBar>
         <Drawer variant="temporary" anchor="left" open={drawerOpen} onClose={() => this.toggleDrawer()}>
-          <div style={{ width: drawerWidth }}>
-            <List>
-              <NavLink className={classes.drawerLink} to="/">
-                <ListItem button title="Home">
-                  <ListItemIcon>
-                    <Home />
-                  </ListItemIcon>
-                  <ListItemText primary="Home" />
-                </ListItem>
-              </NavLink>
-              <NavLink className={classes.drawerLink} to="/about/1">
-                <ListItem button title="About">
-                  <ListItemIcon>
-                    <Explore />
-                  </ListItemIcon>
-                  <ListItemText primary="About" />
-                </ListItem>
-              </NavLink>
-            </List>
+          <div
+            tabIndex={0}
+            role="button"
+            onClick={() => this.toggleDrawer(false)}
+            onKeyDown={() => this.toggleDrawer(false)}
+          >
+            <div className={classes.drawerLink}>
+              <List>
+                <NavLink className={classes.drawerLink} to="/">
+                  <ListItem button title="Home">
+                    <ListItemIcon>
+                      <Home />
+                    </ListItemIcon>
+                    <ListItemText primary="Home" />
+                  </ListItem>
+                </NavLink>
+                <NavLink className={classes.drawerLink} to="/about/1">
+                  <ListItem button title="About">
+                    <ListItemIcon>
+                      <Explore />
+                    </ListItemIcon>
+                    <ListItemText primary="About" />
+                  </ListItem>
+                </NavLink>
+              </List>
+            </div>
           </div>
         </Drawer>
         <main className={classes.content}>
