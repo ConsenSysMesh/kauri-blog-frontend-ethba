@@ -22,5 +22,5 @@
     "target": "es2016"
   },
   "exclude": ["node_modules", "build", "scripts", "acceptance-tests", "webpack", "jest", "razzle.config.js"],
-  "types": ["typePatches", "node", "webpack-env"]
+  "types": ["typePatches", "node", "webpack-env", "@material-ui"]
 }

@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { AfterRoot, AfterData } from '@jaredpalmer/after'
 import { JssProvider, SheetsRegistry } from 'react-jss'
-import { createGenerateClassName } from 'material-ui/styles'
+import { createGenerateClassName } from '@material-ui/core/styles'
 import Layout from './layout'
 
 export default class Document extends React.Component {
