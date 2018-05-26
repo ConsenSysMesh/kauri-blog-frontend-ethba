@@ -154,7 +154,7 @@ class Layout extends React.Component {
                     <ListItemText primary="Home" />
                   </ListItem>
                 </NavLink>
-                <NavLink className={classes.drawerLink} to="/about/1">
+                <NavLink className={classes.drawerLink} to="/profile/1">
                   <ListItem button title="Profile">
                     <ListItemIcon>
                       <Explore />
@@ -162,7 +162,7 @@ class Layout extends React.Component {
                     <ListItemText primary="Profile" />
                   </ListItem>
                 </NavLink>
-                <NavLink className={classes.drawerLink} to="/about/1">
+                <NavLink className={classes.drawerLink} to="/write-post">
                   <ListItem button title="Write Post">
                     <ListItemIcon>
                       <Explore />

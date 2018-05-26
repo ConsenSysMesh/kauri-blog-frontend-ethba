@@ -81,7 +81,7 @@ const ViewLink = styled(Link)`
   }
 `
 
-const PostCard = ({ classes, id }) => (
+const PostCard = ({ classes, id = 1 }) => (
   <Card className={classes.card}>
     <CardHeader
       avatar={
@@ -103,8 +103,8 @@ const PostCard = ({ classes, id }) => (
       </Typography>
     </CardContent>
     <CardActions>
-      <ViewLink to={`/post/${id}`}>View Post</ViewLink>
-      <ViewLink to={`/post/${id}`}>View Profile</ViewLink>
+      <ViewLink to={`/blogpost/${id}`}>View Post</ViewLink>
+      <ViewLink to={`/profile/${id}`}>View Profile</ViewLink>
     </CardActions>
   </Card>
 )
