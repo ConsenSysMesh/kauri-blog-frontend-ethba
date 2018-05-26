@@ -55,13 +55,32 @@ const styles = theme => ({
   }
 })
 
-const Date = styled(Typography)`
+export const Date = styled.div`
+  font-family: Roboto-Medium;
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.87);
+  margin-left: 2px;
+  letter-spacing: 2px;
+  line-height: 16px;
+  text-align: left;
+`
+
+const ViewLink = styled(Link)`
+  /* Button: */
   font-family: Roboto-Medium;
   font-size: 14px;
   color: #1976d2;
   letter-spacing: 1.25px;
   text-align: center;
   line-height: 16px;
+  text-transform: uppercase;
+  text-decoration: none;
+  :nth-child(2) {
+    margin-left: 30px;
+  }
+  :first-child {
+    margin-left: 13px;
+  }
 `
 
 const PostCard = ({ classes, id }) => (
@@ -78,11 +97,7 @@ const PostCard = ({ classes, id }) => (
           Headline
         </Typography>
       }
-      subheader={
-        <Typography component="p" className={classes.date}>
-          May 26, 2018
-        </Typography>
-      }
+      subheader={<Date>01/02/2018</Date>}
     />
     <CardContent>
       <Typography className={classes.shortContent} component="p">
@@ -90,10 +105,8 @@ const PostCard = ({ classes, id }) => (
       </Typography>
     </CardContent>
     <CardActions>
-      <Link to={`/post/${id}`}>View Post</Link>
-      <Link to={`/post/${id}`} size="small" color="primary">
-        View Profile
-      </Link>
+      <ViewLink to={`/post/${id}`}>View Post</ViewLink>
+      <ViewLink to={`/post/${id}`}>View Profile</ViewLink>
     </CardActions>
   </Card>
 )

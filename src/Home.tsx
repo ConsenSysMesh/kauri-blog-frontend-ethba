@@ -71,6 +71,14 @@ class Home extends React.Component<WithStyles<'button'>, {}> {
     return (
       <div className="Home">
         <PostCard />
+        <PostCard />
+        <PostCard />
+        <PostCard />
+        <PostCard />
+        <PostCard />
+        <PostCard />
+        <PostCard />
+        <PostCard />
       </div>
     )
   }

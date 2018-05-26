@@ -1,5 +1,9 @@
 .Home {
   text-align: center;
+  overflow-y: scroll;
+}
+.Home > :not(:first-child) {
+  margin-top: 35px;
 }
 .Home-logo {
   animation: logo-spin infinite 20s linear;
