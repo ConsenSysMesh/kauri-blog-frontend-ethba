@@ -18,5 +18,13 @@ export default [
       loader: () => import('./BlogPost'), // required
       Placeholder: () => <div>...LOADING...</div> // this is optional, just returns null by default
     })
+  },
+  {
+    path: '/profile/:id',
+    exact: true,
+    component: asyncComponent({
+      loader: () => import('./Profile'), // required
+      Placeholder: () => <div>...LOADING...</div> // this is optional, just returns null by default
+    })
   }
 ]

@@ -37,7 +37,7 @@ const CommentsContainer = styled.section`
   padding: 16px;
 `
 
-const CommentsHeader = styled.section`
+export const CommentsHeader = styled.section`
   display: flex;
   width: 100%;
   flex-direction: row;
@@ -46,13 +46,13 @@ const CommentsHeader = styled.section`
   }
 `
 
-const CommentsList = styled.section`
+export const CommentsList = styled.section`
   display: flex;
   width: 100%;
   flex-direction: column;
 `
 
-const CommentsHeaderTitle = styled.span`
+export const CommentsHeaderTitle = styled.span`
   /* Subtitle 1: */
   font-family: Roboto-Regular;
   font-size: 16px;
@@ -61,7 +61,7 @@ const CommentsHeaderTitle = styled.span`
   line-height: 24px;
 `
 
-const NumberOfComments = styled.span`
+export const NumberOfComments = styled.span`
   /* Caption: */
   font-family: Roboto-Regular;
   font-size: 12px;
@@ -79,6 +79,9 @@ const Comments = ({ classes, id }) => (
     </CommentsHeader>
     <Divider className={classes.divider} />
     <CommentsList>
+      <Comment />
+      <Comment />
+      <Comment />
       <Comment />
       <Comment />
     </CommentsList>
