@@ -1,8 +1,25 @@
 import React from 'react'
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
+import { MuiThemeProvider, createMuiTheme, withStyles } from '@material-ui/core/styles'
 import blue from '@material-ui/core/colors/blue'
 import red from '@material-ui/core/colors/red'
 import CssBaseline from '@material-ui/core/CssBaseline'
+import { compose } from 'recompose'
+import classNames from 'classnames'
+import { NavLink, withRouter } from 'react-router-dom'
+import { Menu, Explore, Home } from '@material-ui/icons'
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Button,
+  IconButton,
+  Drawer,
+  Divider,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText
+} from '@material-ui/core'
 
 const theme = createMuiTheme({
   palette: {
@@ -14,11 +31,63 @@ const theme = createMuiTheme({
 
 const drawerWidth = 250
 
+const styles = {
+  root: {
+    flexGrow: 1,
+    zIndex: 1,
+    overflowX: 'hidden',
+    position: 'relative',
+    display: 'flex'
+  },
+  flex: {
+    flex: 1
+  },
+  menuButton: {
+    marginLeft: -12,
+    marginRight: 20
+  },
+  appBar: {
+    color: 'white',
+    zIndex: theme.zIndex.drawer + 1,
+    transition: theme.transitions.create(['width', 'margin'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen
+    })
+  },
+  drawerLink: {
+    textDecoration: 'none',
+    width: drawerWidth
+  },
+  drawerPaperClose: {
+    overflowX: 'hidden',
+    transition: theme.transitions.create('width', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen
+    }),
+    width: theme.spacing.unit * 7,
+    [theme.breakpoints.up('sm')]: {
+      width: theme.spacing.unit * 9
+    }
+  },
+  toolbar: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    padding: '0 8px',
+    ...theme.mixins.toolbar
+  },
+  content: {
+    flexGrow: 1,
+    backgroundColor: theme.palette.background.default,
+    padding: theme.spacing.unit * 3
+  }
+}
+
 class Layout extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      drawerOpen: true
+      drawerOpen: false
     }
     this.toggleDrawer = this.toggleDrawer.bind(this)
   }
@@ -34,20 +103,61 @@ class Layout extends React.Component {
   }
 
   toggleDrawer() {
+    console.log('heuy')
     this.setState({ drawerOpen: !this.state.drawerOpen })
   }
 
   render() {
-    const { classes, children } = this.props
+    const {
+      classes,
+      children,
+      location: { pathname }
+    } = this.props
     const { drawerOpen } = this.state
 
     return (
-      <MuiThemeProvider sheetsManager={new Map()} theme={theme}>
+      <MuiThemeProvider theme={theme}>
         <CssBaseline />
-        <main>{children}</main>
+        <AppBar position="absolute" className={classNames(classes.appBar)}>
+          <Toolbar>
+            <IconButton className={classes.menuButton} color="inherit" aria-label="Menu" onClick={this.toggleDrawer}>
+              <Menu />
+            </IconButton>
+            <Typography variant="title" color="inherit" className={classes.flex}>
+              Decentralised Blog Thingy
+            </Typography>
+            {/* <Button color="inherit">Sign in</Button> */}
+          </Toolbar>
+        </AppBar>
+        <Drawer variant="temporary" anchor="left" open={drawerOpen} onClose={() => this.toggleDrawer()}>
+          <div style={{ width: drawerWidth }}>
+            <List>
+              <NavLink className={classes.drawerLink} to="/">
+                <ListItem button title="Home">
+                  <ListItemIcon>
+                    <Home />
+                  </ListItemIcon>
+                  <ListItemText primary="Home" />
+                </ListItem>
+              </NavLink>
+              <NavLink className={classes.drawerLink} to="/about/1">
+                <ListItem button title="About">
+                  <ListItemIcon>
+                    <Explore />
+                  </ListItemIcon>
+                  <ListItemText primary="About" />
+                </ListItem>
+              </NavLink>
+            </List>
+          </div>
+        </Drawer>
+        <main className={classes.content}>
+          <div className={classes.toolbar} />
+          {children}
+        </main>
       </MuiThemeProvider>
     )
   }
 }
 
-export default Layout
+export default compose(withRouter, withStyles(styles))(Layout)
