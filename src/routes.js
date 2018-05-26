@@ -26,5 +26,13 @@ export default [
       loader: () => import('./Profile'), // required
       Placeholder: () => <div>...LOADING...</div> // this is optional, just returns null by default
     })
+  },
+  {
+    path: '/write-post',
+    exact: true,
+    component: asyncComponent({
+      loader: () => import('./WritePost'), // required
+      Placeholder: () => <div>...LOADING...</div> // this is optional, just returns null by default
+    })
   }
 ]
