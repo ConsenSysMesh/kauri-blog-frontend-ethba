@@ -8,8 +8,8 @@ import Button from '@material-ui/core/Button'
 import AddIcon from '@material-ui/icons/Add'
 import { Link } from 'react-router-dom'
 import { AllFilms } from './queries'
-import './Home.css'
 import { AllFilmsQuery } from './__generated__/types'
+import './Home.css'
 
 const styles: StyleRulesCallback<'button'> = theme => ({
   root: {
@@ -51,11 +51,11 @@ class Home extends React.Component<WithStyles<'button'>, {}> {
                 {allFilms &&
                   allFilms.films &&
                   allFilms.films.map(
-                    film =>
+                    (film, i) =>
                       film && (
-                        <Link key={film.id} to={`/${film.id}`}>
-                          {film.title}
-                        </Link>
+                        <div key={film.id}>
+                          <Link to={`/about/${i + 1}`}>{film.title}</Link>
+                        </div>
                       )
                   )}
               </div>
