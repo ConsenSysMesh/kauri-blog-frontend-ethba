@@ -6,11 +6,12 @@ import red from '@material-ui/core/colors/red'
 import styled from 'styled-components'
 import {
   CommentsHeaderTitle as PostsHeaderTitle,
-  CommentsList as PostsList,
+  CommentsList,
   CommentsHeader as PostsHeader,
   NumberOfComments as NumberOfPosts
 } from './Comments'
 import Divider from '@material-ui/core/Divider'
+import PostCard from './PostCard'
 
 const styles = theme => ({
   card: {
@@ -52,6 +53,12 @@ const styles = theme => ({
   }
 })
 
+const PostsList = CommentsList.extend`
+  > :not(:first-child) {
+    margin-top: 20px;
+  }
+`
+
 const Container = styled.section`
   display: flex;
   overflow-y: scroll;
@@ -59,7 +66,7 @@ const Container = styled.section`
 `
 
 const PostsDivider = styled(Divider)`
-  margin: 10px 0px !important;
+  margin: 20px 0px !important;
 `
 
 const Posts = ({ classes, id }) => (
@@ -69,6 +76,11 @@ const Posts = ({ classes, id }) => (
       <NumberOfPosts>4</NumberOfPosts>
     </PostsHeader>
     <PostsDivider />
+    <PostsList>
+      <PostCard />
+      <PostCard />
+      <PostCard />
+    </PostsList>
   </Container>
 )
 
