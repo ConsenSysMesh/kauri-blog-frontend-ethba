@@ -24,13 +24,14 @@ const Container = styled.section`
 
 const Address = styled.span`
   height: 46px;
-  width: 344px;
+  width: 325px;
   color: rgba(0, 0, 0, 0.87);
   font-family: Roboto;
   font-size: 17px;
   font-weight: 500;
   letter-spacing: 0.21px;
   line-height: 23px;
+  word-wrap: break-word;
 `
 
 const Posts = ({ classes, id }) => (

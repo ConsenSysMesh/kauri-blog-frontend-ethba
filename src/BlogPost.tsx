@@ -15,7 +15,6 @@ import IconButton from '@material-ui/core/IconButton'
 import ShareIcon from '@material-ui/icons/Share'
 import Typography from '@material-ui/core/Typography'
 import red from '@material-ui/core/colors/red'
-import blue from '@material-ui/core/colors/blue'
 import styled from 'styled-components'
 import Comments from './Comments'
 

@@ -20,6 +20,7 @@ import {
   ListItemIcon,
   ListItemText
 } from '@material-ui/core'
+import ProfileDetails from './ProfileDetails'
 
 const theme = createMuiTheme({
   palette: {
@@ -29,7 +30,7 @@ const theme = createMuiTheme({
   }
 })
 
-const drawerWidth = 250
+const drawerWidth = 350
 
 const styles = {
   root: {
@@ -141,6 +142,10 @@ class Layout extends React.Component {
           >
             <div className={classes.drawerLink}>
               <List>
+                <ListItem>
+                  <ProfileDetails />
+                </ListItem>
+                <Divider />
                 <NavLink className={classes.drawerLink} to="/">
                   <ListItem button title="Home">
                     <ListItemIcon>
@@ -150,11 +155,19 @@ class Layout extends React.Component {
                   </ListItem>
                 </NavLink>
                 <NavLink className={classes.drawerLink} to="/about/1">
-                  <ListItem button title="About">
+                  <ListItem button title="Profile">
                     <ListItemIcon>
                       <Explore />
                     </ListItemIcon>
-                    <ListItemText primary="About" />
+                    <ListItemText primary="Profile" />
+                  </ListItem>
+                </NavLink>
+                <NavLink className={classes.drawerLink} to="/about/1">
+                  <ListItem button title="Write Post">
+                    <ListItemIcon>
+                      <Explore />
+                    </ListItemIcon>
+                    <ListItemText primary="Write Post" />
                   </ListItem>
                 </NavLink>
               </List>
