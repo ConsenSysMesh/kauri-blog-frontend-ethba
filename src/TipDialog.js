@@ -19,8 +19,22 @@ export default class FormDialog extends React.Component {
   handleClose = () => {
     this.setState({ open: false })
   }
+
   handleChange = event => {
     this.setState({ ...this.state, tip: event.target.value })
+  }
+
+  handleSubmit = () => {
+    const weiBounty = web3.toWei(this.state.tip, 'ether')
+
+    window.Blog.tipPost(this.props.id, this.props.author, {
+      from: web3.eth.accounts[0],
+      value: weiBounty,
+      gas: 250000
+    }).then(transactionId => {
+      console.log(transactionId)
+      this.handleClose()
+    })
   }
 
   render() {
@@ -37,7 +51,7 @@ export default class FormDialog extends React.Component {
               onChange={this.handleChange}
               autoFocus
               margin="dense"
-              id="name"
+              id="tip"
               label="ETH"
               type="number"
               fullWidth
@@ -47,7 +61,7 @@ export default class FormDialog extends React.Component {
             <Button onClick={this.handleClose} color="secondary">
               Cancel
             </Button>
-            <Button onClick={this.handleClose} color="primary">
+            <Button onClick={this.handleSubmit} color="primary">
               Submit
             </Button>
           </DialogActions>

@@ -20,6 +20,7 @@ import Comments from './Comments'
 import { getBlogPost } from './queries'
 import { getBlogPostQuery, getBlogPostQueryVariables } from './__generated__/types'
 import MarkdownShortcuts from './MarkdownEditor'
+import TipDialog from './TipDialog'
 
 const styles = theme => ({
   card: {
@@ -113,6 +114,7 @@ const PostCard = ({
       if (getBlogPost) {
         return (
           <Card className={classes.card}>
+            <TipDialog id={id} author={getBlogPost.user} />
             <CardHeader
               avatar={
                 <Avatar aria-label="Recipe" className={classes.avatar}>
