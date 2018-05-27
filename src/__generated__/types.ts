@@ -78,7 +78,7 @@ export interface savePostMutation {
     user: string | null
     title: string | null
     content: string | null
-    totalTip: number | null
+    totalTips: number | null
     status: Status | null
     contentHash: string | null
     dateCreated: string | null
@@ -102,6 +102,6 @@ export interface getBlogPostQuery {
     dateUpdated: string | null
     status: Status | null
     blogName: string | null
-    totalTip: number | null
+    totalTips: number | null
   } | null
 }

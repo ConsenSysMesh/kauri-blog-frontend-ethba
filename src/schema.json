@@ -284,7 +284,7 @@
               "deprecationReason": null
             },
             {
-              "name": "totalTip",
+              "name": "totalTips",
               "description": null,
               "args": [],
               "type": {

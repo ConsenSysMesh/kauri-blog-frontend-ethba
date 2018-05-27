@@ -32,7 +32,7 @@ export const createNewPost = gql`
       user
       title
       content
-      totalTip
+      totalTips
       status
       contentHash
       dateCreated
@@ -52,6 +52,7 @@ export const getBlogPost = gql`
       dateCreated
       dateUpdated
       status
+      totalTips
       blogName
     }
   }
