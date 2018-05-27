@@ -36,7 +36,7 @@ const BlogPosts = () => (
       sort: 'dateCreated',
       dir: 'DESC',
       filter: {
-        // status_in: ['PUBLISHED']
+        status_in: ['PUBLISHED']
       }
     }}
   >

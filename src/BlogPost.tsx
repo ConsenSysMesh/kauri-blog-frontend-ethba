@@ -20,7 +20,7 @@ import Comments from './Comments'
 import { getBlogPost } from './queries'
 import { getBlogPostQuery, getBlogPostQueryVariables } from './__generated__/types'
 import MarkdownShortcuts from './MarkdownEditor'
-// import TipDialog from './TipDialog'
+import TipDialog from './TipDialog'
 
 const styles = theme => ({
   card: {
@@ -91,75 +91,117 @@ const ViewLink = styled(Link)`
   }
 `
 
+const ViewTip = styled.a`
+  /* Button: */
+  font-family: Roboto-Medium;
+  font-size: 14px;
+  color: #1976d2;
+  letter-spacing: 1.25px;
+  text-align: center;
+  line-height: 16px;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #1976d2;
+  :nth-child(2) {
+    margin-left: 30px;
+  }
+  :first-child {
+    margin-left: 13px;
+  }
+`
+
 class GetBlogPostComponent extends Query<getBlogPostQuery> {}
 
-const PostCard = ({
-  classes,
-  match: {
-    params: { id }
+class PostCard extends React.Component {
+  state = {
+    open: false
   }
-}) => (
-  <GetBlogPostComponent
-    query={getBlogPost}
-    variables={{
-      id
-    }}
-  >
-    {({ data, loading, error }) => {
-      if (loading) return <p>loading...</p>
-      if (error) return <p>Error</p>
-      const { getBlogPost } = data
-      if (!getBlogPost) return <p>No data</p>
 
-      if (getBlogPost) {
-        return (
-          <Card className={classes.card}>
-            {/* <TipDialog id={id} author={getBlogPost.user} /> */}
-            <CardHeader
-              avatar={
-                <Avatar aria-label="Recipe" className={classes.avatar}>
-                  {getBlogPost.user.charAt(0)}
-                </Avatar>
-              }
-              action={<IconButton />}
-              title={
-                <Typography variant="headline" component="h2" className={classes.headline}>
-                  {getBlogPost.title}
-                </Typography>
-              }
-              subheader={
-                <div>
-                  <Date>01/02/2018</Date>
-                  <Date>{global.window && window.web3.fromWei(getBlogPost.totalTip, 'ether')} ETH tipped</Date>
-                </div>
-              }
-            />
-            <CardContent>
-              <MarkdownShortcuts content={getBlogPost.content} />
-              {/* <CardMedia
+  handleClickOpen = () => {
+    this.setState({ open: true })
+  }
+
+  handleClose = () => {
+    this.setState({ open: false })
+  }
+
+  render() {
+    const {
+      classes,
+      match: {
+        params: { id }
+      }
+    } = this.props
+    return (
+      <GetBlogPostComponent
+        query={getBlogPost}
+        variables={{
+          id
+        }}
+      >
+        {({ data, loading, error }) => {
+          if (loading) return <p>loading...</p>
+          if (error) return <p>Error</p>
+          const { getBlogPost } = data
+          if (!getBlogPost) return <p>No data</p>
+
+          if (getBlogPost) {
+            return (
+              <Card className={classes.card}>
+                <TipDialog
+                  handleClickOpen={this.handleClickOpen}
+                  handleClose={this.handleClose}
+                  open={this.state.open}
+                  id={id}
+                  author={getBlogPost.user}
+                />
+                <CardHeader
+                  avatar={
+                    <Avatar aria-label="Recipe" className={classes.avatar}>
+                      {getBlogPost.user.charAt(0)}
+                    </Avatar>
+                  }
+                  action={<IconButton />}
+                  title={
+                    <Typography variant="headline" component="h2" className={classes.headline}>
+                      {getBlogPost.title}
+                    </Typography>
+                  }
+                  subheader={
+                    <div>
+                      <Date>01/02/2018</Date>
+                      <Date>{global.window && window.web3.fromWei(getBlogPost.totalTip, 'ether')} ETH tipped</Date>
+                    </div>
+                  }
+                />
+                <CardContent>
+                  <MarkdownShortcuts content={getBlogPost.content} />
+                  {/* <CardMedia
                 className={classes.media}
                 image=" https://material-ui.com/static/images/cards/contemplative-reptile.jpg"
                 title="Contemplative Reptile"
               /> */}
-              {/* <Typography className={classes.shortContent} component="p">
+                  {/* <Typography className={classes.shortContent} component="p">
                 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Provident cupiditate quasi non quibusdam
                 quisquam reprehenderit nulla alias similique! Corporis quia voluptatem vel maxime ipsa sequi ipsum
                 doloremque tempora quisquam ducimus.
               </Typography> */}
-            </CardContent>
-            <CardActions>
-              <ViewLink to={`/post/${id}`}>Tip Post</ViewLink>
-              <ViewLink to={`/profile/${getBlogPost.user}`}>View Profile</ViewLink>
-              <IconButton className={classes.share} aria-label="Share">
-                <ShareIcon />
-              </IconButton>
-            </CardActions>
-            <Comments />
-          </Card>
-        )
-      }
-    }}
-  </GetBlogPostComponent>
-)
+                </CardContent>
+                <CardActions>
+                  <ViewTip onClick={this.handleClickOpen}>Tip Post</ViewTip>
+                  <ViewLink to={`/profile/${getBlogPost.user}`}>View Profile</ViewLink>
+                  <IconButton className={classes.share} aria-label="Share">
+                    <ShareIcon />
+                  </IconButton>
+                </CardActions>
+                <Comments />
+              </Card>
+            )
+          }
+        }}
+      </GetBlogPostComponent>
+    )
+  }
+}
 
 export default withStyles(styles)(PostCard)

@@ -115,6 +115,7 @@ class Layout extends React.Component {
     const {
       classes,
       children,
+      ssr,
       location: { pathname }
     } = this.props
     const { drawerOpen } = this.state

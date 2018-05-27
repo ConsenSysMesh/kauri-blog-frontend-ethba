@@ -13,10 +13,10 @@ export default class Document extends React.Component {
     const page = await renderPage(After => props => (
       <JssProvider
         registry={sheets}
-        jss={jss}
-        // generateClassName={generateClassName}
+        // jss={jsse
+        generateClassName={generateClassName}
       >
-        <Layout>
+        <Layout ssr>
           <After {...props} />
         </Layout>
       </JssProvider>
@@ -45,6 +45,7 @@ export default class Document extends React.Component {
           {helmet.link.toComponent()}
           {assets.client.css && <link rel="stylesheet" href={assets.client.css} />}
           <style type="text/css">{sheets.toString()}</style>
+          )}
         </head>
         <body {...bodyAttrs}>
           <AfterRoot />

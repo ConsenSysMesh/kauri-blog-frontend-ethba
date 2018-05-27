@@ -20,7 +20,6 @@ export const createBlog = gql`
     createBlog(user: $user, name: $name) {
       user
       name
-      tipAmount
     }
   }
 `

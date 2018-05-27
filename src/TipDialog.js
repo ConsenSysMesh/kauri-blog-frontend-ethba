@@ -12,14 +12,6 @@ export default class FormDialog extends React.Component {
     open: false
   }
 
-  handleClickOpen = () => {
-    this.setState({ open: true })
-  }
-
-  handleClose = () => {
-    this.setState({ open: false })
-  }
-
   handleChange = event => {
     this.setState({ ...this.state, tip: event.target.value })
   }
@@ -40,8 +32,8 @@ export default class FormDialog extends React.Component {
   render() {
     return (
       <div>
-        <Button onClick={this.handleClickOpen}>Open form dialog</Button>
-        <Dialog open={this.state.open} onClose={this.handleClose} aria-labelledby="form-dialog-title">
+        {/* <Button onClick={this.props.handleClickOpen}>Open form dialog</Button> */}
+        <Dialog open={this.props.open} onClose={this.props.handleClose} aria-labelledby="form-dialog-title">
           <DialogTitle id="form-dialog-title">Tip Post</DialogTitle>
           <DialogContent>
             <DialogContentText>
@@ -58,7 +50,7 @@ export default class FormDialog extends React.Component {
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.handleClose} color="secondary">
+            <Button onClick={this.props.handleClose} color="secondary">
               Cancel
             </Button>
             <Button onClick={this.handleSubmit} color="primary">

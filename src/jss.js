@@ -6,4 +6,8 @@ import createGenerateClassName from '@material-ui/core/styles/createGenerateClas
 const jss = create(preset())
 jss.options.createGenerateClassName = createGenerateClassName
 
-export default jss
+require('jss/lib/utils/moduleId').default = 0
+const result = create(preset())
+result.id = 0
+
+export default result
