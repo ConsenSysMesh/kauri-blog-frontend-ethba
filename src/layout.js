@@ -120,7 +120,7 @@ class Layout extends React.Component {
     const { drawerOpen } = this.state
 
     return (
-      <MuiThemeProvider sheetsManager={new Map()} theme={theme}>
+      <MuiThemeProvider sheetsManager={new WeakMap()} theme={theme}>
         <CssBaseline />
         <AppBar position="absolute" className={classNames(classes.appBar)}>
           <Toolbar>
@@ -148,7 +148,7 @@ class Layout extends React.Component {
             <div className={classes.drawerLink}>
               <List>
                 <ListItem>
-                  <ProfileDetails id={window && window.web3 && window.web3.eth.accounts[0]} />
+                  <ProfileDetails id={global.window && window && window.web3 && window.web3.eth.accounts[0]} />
                 </ListItem>
                 <Divider />
                 <NavLink className={classes.drawerLink} to="/">
@@ -161,7 +161,7 @@ class Layout extends React.Component {
                 </NavLink>
                 <NavLink
                   className={classes.drawerLink}
-                  to={`/profile/${window && window.web3 && window.web3.eth.accounts[0]}`}
+                  to={`/profile/${global.window && window && window.web3 && window.web3.eth.accounts[0]}`}
                 >
                   <ListItem button title="Profile">
                     <ListItemIcon>

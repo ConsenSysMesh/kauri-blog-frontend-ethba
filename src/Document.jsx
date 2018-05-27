@@ -3,6 +3,7 @@ import { AfterRoot, AfterData } from '@jaredpalmer/after'
 import { JssProvider, SheetsRegistry } from 'react-jss'
 import { createGenerateClassName } from '@material-ui/core/styles'
 import Layout from './layout'
+import jss from './jss'
 
 export default class Document extends React.Component {
   static async getInitialProps({ req, assets, data, renderPage }) {
@@ -10,7 +11,11 @@ export default class Document extends React.Component {
     const generateClassName = createGenerateClassName()
 
     const page = await renderPage(After => props => (
-      <JssProvider registry={sheets} generateClassName={generateClassName}>
+      <JssProvider
+        registry={sheets}
+        jss={jss}
+        // generateClassName={generateClassName}
+      >
         <Layout>
           <After {...props} />
         </Layout>

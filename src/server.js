@@ -25,7 +25,7 @@ server
           return { html, initialApolloState }
         })
         .catch(err => {
-          // console.error(err)
+          console.error(err)
           const initialApolloState = client.extract()
           const html = renderToString(App)
           return { html, initialApolloState }
@@ -43,6 +43,7 @@ server
       })
       res.send(html)
     } catch (error) {
+      console.error(error)
       res.json(error)
     }
   })

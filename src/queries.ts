@@ -53,7 +53,6 @@ export const getBlogPost = gql`
       dateUpdated
       status
       blogName
-      totalTip
     }
   }
 `

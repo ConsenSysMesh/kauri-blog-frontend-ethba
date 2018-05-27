@@ -20,7 +20,7 @@ import Comments from './Comments'
 import { getBlogPost } from './queries'
 import { getBlogPostQuery, getBlogPostQueryVariables } from './__generated__/types'
 import MarkdownShortcuts from './MarkdownEditor'
-import TipDialog from './TipDialog'
+// import TipDialog from './TipDialog'
 
 const styles = theme => ({
   card: {
@@ -114,7 +114,7 @@ const PostCard = ({
       if (getBlogPost) {
         return (
           <Card className={classes.card}>
-            <TipDialog id={id} author={getBlogPost.user} />
+            {/* <TipDialog id={id} author={getBlogPost.user} /> */}
             <CardHeader
               avatar={
                 <Avatar aria-label="Recipe" className={classes.avatar}>
@@ -130,7 +130,9 @@ const PostCard = ({
               subheader={
                 <div>
                   <Date>01/02/2018</Date>
-                  <Date>{window.web3.fromWei(getBlogPost.totalTip, 'ether').toFixed(2)} ETH tipped</Date>
+                  <Date>
+                    {global.window && window.web3.fromWei(getBlogPost.totalTip, 'ether').toFixed(2)} ETH tipped
+                  </Date>
                 </div>
               }
             />
