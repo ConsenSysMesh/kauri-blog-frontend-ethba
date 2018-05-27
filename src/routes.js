@@ -1,38 +1,29 @@
 import React from 'react'
-
+import Home from './Home'
+import BlogPost from './BlogPost'
+import Profile from './Profile'
+import WritePost from './WritePost'
 import { asyncComponent } from '@jaredpalmer/after'
 
 export default [
   {
     path: '/',
     exact: true,
-    component: asyncComponent({
-      loader: () => import('./Home.tsx'), // required
-      Placeholder: () => <div>...LOADING...</div> // this is optional, just returns null by default
-    })
+    component: Home
   },
   {
     path: '/blogpost/:id',
     exact: true,
-    component: asyncComponent({
-      loader: () => import('./BlogPost'), // required
-      Placeholder: () => <div>...LOADING...</div> // this is optional, just returns null by default
-    })
+    component: BlogPost
   },
   {
     path: '/profile/:id',
     exact: true,
-    component: asyncComponent({
-      loader: () => import('./Profile'), // required
-      Placeholder: () => <div>...LOADING...</div> // this is optional, just returns null by default
-    })
+    component: Profile
   },
   {
     path: '/write-post',
     exact: true,
-    component: asyncComponent({
-      loader: () => import('./WritePost'), // required
-      Placeholder: () => <div>...LOADING...</div> // this is optional, just returns null by default
-    })
+    component: WritePost
   }
 ]

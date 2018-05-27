@@ -115,7 +115,7 @@ class Layout extends React.Component {
     const { drawerOpen } = this.state
 
     return (
-      <MuiThemeProvider theme={theme}>
+      <MuiThemeProvider sheetsManager={new Map()} theme={theme}>
         <CssBaseline />
         <AppBar position="absolute" className={classNames(classes.appBar)}>
           <Toolbar>

@@ -5,6 +5,9 @@ import TextField from '@material-ui/core/TextField'
 import Icon from '@material-ui/core/Icon'
 import Save from '@material-ui/icons/Save'
 import Button from '@material-ui/core/Button'
+import MarkdownShortcuts from './MarkdownEditor'
+import { Typography, Divider } from '@material-ui/core'
+import styled from 'styled-components'
 
 const styles = theme => ({
   container: {
@@ -33,6 +36,15 @@ const styles = theme => ({
   }
 })
 
+const EditorContainer = styled.section`
+  display: flex;
+  margin-left: 10px;
+  flex-direction: column;
+  > :first-child {
+    border-bottom: 1px solid #1976d2;
+  }
+`
+
 class TextFields extends React.Component {
   state = {
     title: '',
@@ -58,15 +70,11 @@ class TextFields extends React.Component {
           onChange={this.handleChange('title')}
           margin="normal"
         />
-        <TextField
-          id="multiline-flexible"
-          value={this.state.blog}
-          onChange={this.handleChange('blog')}
-          label="Blog"
-          multiline
-          className={classes.textField}
-          margin="normal"
-        />
+        <EditorContainer>
+          <Typography>Post</Typography>
+          <MarkdownShortcuts />
+        </EditorContainer>
+        <Divider />
         <Button className={classes.button} variant="raised" color="primary">
           Post
           <Icon className={classes.rightIcon}>send</Icon>
