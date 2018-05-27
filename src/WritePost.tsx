@@ -74,15 +74,18 @@ class TextFields extends React.Component {
     createBlog({ variables: { name: window.web3.eth.accounts[0], user: window.web3.eth.accounts[0] } })
       .then(({ data }) => {
         console.log('create blog', data)
-        createNewPost({ variables: { user: window.web3.eth.accounts[0], title, content: blog } }).then(({ data }) => {
-          console.log('createNewPost', data)
-          window.Blog.submitPost
-            .sendTransaction(data.savePost.id, web3.sha3(data.savePost.contentHash).toString('hex'), {
-              from: window.web3.eth.accounts[0],
-              gas: 250000
-            })
-            .then(transactionId => console.log('transactionId', transactionId))
-        })
+        createNewPost({ variables: { user: window.web3.eth.accounts[0], title, content: blog } })
+          .then(({ data }) => {
+            console.log('createNewPost', data)
+            window.Blog.submitPost
+              .sendTransaction(data.savePost.id, web3.sha3(data.savePost.contentHash).toString('hex'), {
+                from: window.web3.eth.accounts[0],
+                gas: 250000
+              })
+              .then(transactionId => console.log('transactionId', transactionId))
+              .catch(err => console.error(err))
+          })
+          .catch(err => console.error(err))
       })
       .catch(err => console.error(err))
   }

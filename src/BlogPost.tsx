@@ -169,8 +169,8 @@ class PostCard extends React.Component {
                   }
                   subheader={
                     <div>
-                      <Date>01/02/2018</Date>
-                      <Date>{global.window && window.web3.fromWei(getBlogPost.totalTip, 'ether')} ETH tipped</Date>
+                      <Date>{getBlogPost.dateUpdated}</Date>
+                      <Date>{global.window && window.web3.fromWei(getBlogPost.totalTips, 'ether')} ETH tipped</Date>
                     </div>
                   }
                 />

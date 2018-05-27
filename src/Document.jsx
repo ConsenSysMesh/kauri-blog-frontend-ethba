@@ -10,17 +10,18 @@ export default class Document extends React.Component {
     const sheets = new SheetsRegistry()
     const generateClassName = createGenerateClassName()
 
-    const page = await renderPage(After => props => (
-      <JssProvider
-        registry={sheets}
-        // jss={jsse
-        generateClassName={generateClassName}
-      >
-        <Layout ssr>
-          <After {...props} />
-        </Layout>
-      </JssProvider>
-    ))
+    const page = await renderPage()
+    // const page = await renderPage(After => props => (
+    //   <JssProvider
+    //     registry={sheets}
+    //     // jss={jsse
+    //     generateClassName={generateClassName}
+    //   >
+    //     <Layout ssr>
+    //  <After {...props} />
+    //     </Layout>
+    //   </JssProvider>
+    // ))
     return { assets, data, sheets, ...page }
   }
 
@@ -44,7 +45,7 @@ export default class Document extends React.Component {
           {helmet.meta.toComponent()}
           {helmet.link.toComponent()}
           {assets.client.css && <link rel="stylesheet" href={assets.client.css} />}
-          <style type="text/css">{sheets.toString()}</style>
+          {/* <style type="text/css">{sheets.toString()}</style> */}
           )}
         </head>
         <body {...bodyAttrs}>
