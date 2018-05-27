@@ -8,6 +8,9 @@ import Button from '@material-ui/core/Button'
 import MarkdownShortcuts from './MarkdownEditor'
 import { Typography, Divider } from '@material-ui/core'
 import styled from 'styled-components'
+import { Mutation } from 'react-apollo'
+import { createBlogMutationVariables, createBlogMutation } from './__generated__/types'
+import { createBlog } from './queries'
 
 const styles = theme => ({
   container: {
@@ -45,6 +48,8 @@ const EditorContainer = styled.section`
   }
 `
 
+class CreateBlogComponent extends Mutation<createBlogMutation, createBlogMutationVariables> {}
+
 class TextFields extends React.Component {
   state = {
     title: '',
@@ -57,9 +62,14 @@ class TextFields extends React.Component {
     })
   }
 
-  handleSubmit = (e: MouseEvent) => {
+  handleSubmit = createBlog => (e: MouseEvent) => {
     e.preventDefault()
     console.log(this.state)
+    createBlog({ variables: { name: window.web3.eth.accounts[0], user: window.web3.eth.accounts[0] } })
+      .then(({ data }) => {
+        console.log(data)
+      })
+      .catch(err => console.error(err))
     // KauriCore.addRequest.sendTransaction(
     //   id,
     //   web3.sha3(content_hash).toString('hex'),
@@ -79,25 +89,36 @@ class TextFields extends React.Component {
     const { classes } = this.props
 
     return (
-      <form className={classes.container} noValidate autoComplete="off">
-        <TextField
-          id="title"
-          label="Title"
-          className={classes.textField}
-          value={this.state.title}
-          onChange={this.handleChange('title')}
-          margin="normal"
-        />
-        <EditorContainer>
-          <Typography>Post</Typography>
-          <MarkdownShortcuts handleChange={this.handleChange('blog')} />
-        </EditorContainer>
-        <Divider />
-        <Button onClick={this.handleSubmit} className={classes.button} variant="raised" color="primary">
-          Post
-          <Icon className={classes.rightIcon}>send</Icon>
-        </Button>
-      </form>
+      <CreateBlogComponent mutation={createBlog}>
+        {(createBlog, { data }) => {
+          return (
+            <form className={classes.container} noValidate autoComplete="off">
+              <TextField
+                id="title"
+                label="Title"
+                className={classes.textField}
+                value={this.state.title}
+                onChange={this.handleChange('title')}
+                margin="normal"
+              />
+              <EditorContainer>
+                <Typography>Post</Typography>
+                <MarkdownShortcuts handleChange={this.handleChange('blog')} />
+              </EditorContainer>
+              <Divider />
+              <Button
+                onClick={this.handleSubmit(createBlog)}
+                className={classes.button}
+                variant="raised"
+                color="primary"
+              >
+                Post
+                <Icon className={classes.rightIcon}>send</Icon>
+              </Button>
+            </form>
+          )
+        }}
+      </CreateBlogComponent>
     )
   }
 }

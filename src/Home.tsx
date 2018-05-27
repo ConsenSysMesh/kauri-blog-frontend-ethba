@@ -28,37 +28,26 @@ const styles: StyleRulesCallback<'button'> = theme => ({
 class SearchBlogPostComponent extends Query<searchBlogPostQuery> {}
 
 const BlogPosts = () => (
-  <SearchBlogPostComponent query={searchBlogPost}>
+  <SearchBlogPostComponent
+    query={searchBlogPost}
+    variables={{
+      page: 0,
+      size: 10,
+      sort: 'dateCreated',
+      dir: 'DESC',
+      filter: {}
+    }}
+  >
     {({ data, loading, error }) => {
       if (loading) return <p>loading...</p>
       if (error) return <p>Error</p>
-      if (!data) return <p>No data</p>
-
       const { searchBlogPost } = data
+      if (searchBlogPost && !searchBlogPost.content.length) return <p>No data</p>
       return (
-        <div className="Home">
-          <div className="Home-header">
-            <Typography variant="subheading" gutterBottom>
-              example project
-            </Typography>
-            <Button variant="fab" color="primary" aria-label="add" className={classes.button}>
-              <AddIcon />
-            </Button>
-          </div>
-          <div className="Home-intro">
-            {searchBlogPost &&
-              searchBlogPost.content &&
-              searchBlogPost.content.map(
-                (blogPost, i) =>
-                  blogPost && (
-                    <div key={blogPost.id}>
-                      Hello
-                      {/* <Link to={`/about/${i + 1}`}>{blogPost.title}</Link> */}
-                    </div>
-                  )
-              )}
-          </div>
-          <Link to="/about">About -></Link>
+        <div>
+          {searchBlogPost &&
+            searchBlogPost.content &&
+            searchBlogPost.content.map((blogPost, i) => blogPost && <PostCard {...blogPost} />)}
         </div>
       )
     }}
@@ -70,7 +59,7 @@ class Home extends React.Component<WithStyles<'button'>, {}> {
     const { classes } = this.props
     return (
       <div className="Home">
-        {/* <BlogPosts /> */}
+        <BlogPosts classes={classes} />
         <PostCard />
         <PostCard />
         <PostCard />
