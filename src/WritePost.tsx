@@ -60,6 +60,19 @@ class TextFields extends React.Component {
   handleSubmit = (e: MouseEvent) => {
     e.preventDefault()
     console.log(this.state)
+    // KauriCore.addRequest.sendTransaction(
+    //   id,
+    //   web3.sha3(content_hash).toString('hex'),
+    //   category,
+    //   Math.floor(dead_line / 1000),
+    //   weiBounty,
+    //   {
+    //     from: web3.eth.accounts[0],
+    //     value: weiBounty,
+    //     gas: 250000,
+    //     gasPrice,
+    //   }
+    // )
   }
 
   render() {
