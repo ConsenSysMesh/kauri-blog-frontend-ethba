@@ -7,8 +7,8 @@ function createApolloClient({ ssrMode }) {
   return new ApolloClient({
     ssrMode,
     link: createHttpLink({
-      uri: 'http://localhost:8080',
-      credentials: 'same-origin',
+      uri: 'http://35.153.74.129:80/graphql',
+      credentials: 'include',
       fetch
     }),
     cache: ssrMode ? new InMemoryCache() : new InMemoryCache().restore(window.__APOLLO_STATE__)

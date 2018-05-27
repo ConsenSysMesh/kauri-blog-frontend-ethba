@@ -70,6 +70,7 @@ class Home extends React.Component<WithStyles<'button'>, {}> {
     const { classes } = this.props
     return (
       <div className="Home">
+        {/* <BlogPosts /> */}
         <PostCard />
         <PostCard />
         <PostCard />

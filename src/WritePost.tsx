@@ -12,7 +12,7 @@ import styled from 'styled-components'
 const styles = theme => ({
   container: {
     display: 'flex',
-    flexWrap: 'wrap'
+    flexDirection: 'column'
   },
   textField: {
     marginLeft: theme.spacing.unit,
@@ -72,7 +72,7 @@ class TextFields extends React.Component {
         />
         <EditorContainer>
           <Typography>Post</Typography>
-          <MarkdownShortcuts />
+          <MarkdownShortcuts handleChange={this.handleChange('blog')} />
         </EditorContainer>
         <Divider />
         <Button className={classes.button} variant="raised" color="primary">
