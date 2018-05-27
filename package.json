@@ -37,6 +37,7 @@
     "slate": "^0.33.6",
     "slate-react": "^0.12.6",
     "styled-components": "^3.3.0",
+    "truffle-contract": "^3.0.5",
     "ts-jest": "^22.4.4",
     "ts-loader": "^4.2.0",
     "tslint": "^5.9.1",

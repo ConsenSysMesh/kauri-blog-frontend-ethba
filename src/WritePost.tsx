@@ -57,6 +57,11 @@ class TextFields extends React.Component {
     })
   }
 
+  handleSubmit = (e: MouseEvent) => {
+    e.preventDefault()
+    console.log(this.state)
+  }
+
   render() {
     const { classes } = this.props
 
@@ -75,7 +80,7 @@ class TextFields extends React.Component {
           <MarkdownShortcuts handleChange={this.handleChange('blog')} />
         </EditorContainer>
         <Divider />
-        <Button className={classes.button} variant="raised" color="primary">
+        <Button onClick={this.handleSubmit} className={classes.button} variant="raised" color="primary">
           Post
           <Icon className={classes.rightIcon}>send</Icon>
         </Button>

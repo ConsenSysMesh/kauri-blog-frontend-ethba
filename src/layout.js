@@ -7,6 +7,7 @@ import { compose } from 'recompose'
 import classNames from 'classnames'
 import { NavLink, withRouter } from 'react-router-dom'
 import { Menu, Explore, Home } from '@material-ui/icons'
+import contract from 'truffle-contract'
 import {
   AppBar,
   Toolbar,
@@ -21,6 +22,8 @@ import {
   ListItemText
 } from '@material-ui/core'
 import ProfileDetails from './ProfileDetails'
+
+let Blog = contract(require('./lib/Blog.json'))
 
 const theme = createMuiTheme({
   palette: {
@@ -100,6 +103,8 @@ class Layout extends React.Component {
     this.setState({
       loaded: true
     })
+    Blog.setProvider(window.web3.currentProvider)
+    Blog.deployed().then(blog => (window.Blog = blog))
   }
 
   toggleDrawer = open => {
