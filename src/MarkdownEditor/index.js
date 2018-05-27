@@ -113,6 +113,7 @@ class MarkdownShortcuts extends React.Component {
 
   onChange = ({ value }) => {
     this.setState({ value })
+    this.props.handleChange({ target: { value } })
   }
 
   /**
