@@ -35,12 +35,12 @@ const Address = styled.span`
   word-wrap: break-word;
 `
 
-const Posts = ({ classes, type }) => (
+const Posts = ({ classes, type, id }) => (
   <Container className={classes.card} type={type}>
     <Avatar aria-label="Recipe" className={classes.avatar}>
-      B
+      {id && id.charAt(0)}
     </Avatar>
-    <Address>0x92D1D7188c773c1b322e5d7d3C35dB0B0BC33E3e</Address>
+    <Address>{id}</Address>
   </Container>
 )
 

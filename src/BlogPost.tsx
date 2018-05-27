@@ -1,5 +1,5 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import { Query } from 'react-apollo'
 import { withStyles } from '@material-ui/core/styles'
 import classnames from 'classnames'
 import Button from '@material-ui/core/Button'
@@ -17,6 +17,9 @@ import Typography from '@material-ui/core/Typography'
 import red from '@material-ui/core/colors/red'
 import styled from 'styled-components'
 import Comments from './Comments'
+import { getBlogPost } from './queries'
+import { getBlogPostQuery, getBlogPostQueryVariables } from './__generated__/types'
+import MarkdownShortcuts from './MarkdownEditor'
 
 const styles = theme => ({
   card: {
@@ -87,48 +90,74 @@ const ViewLink = styled(Link)`
   }
 `
 
-const PostCard = ({ classes, id }) => (
-  <Card className={classes.card}>
-    <CardHeader
-      avatar={
-        <Avatar aria-label="Recipe" className={classes.avatar}>
-          A
-        </Avatar>
+class GetBlogPostComponent extends Query<getBlogPostQuery> {}
+
+const PostCard = ({
+  classes,
+  match: {
+    params: { id }
+  }
+}) => (
+  <GetBlogPostComponent
+    query={getBlogPost}
+    variables={{
+      id
+    }}
+  >
+    {({ data, loading, error }) => {
+      if (loading) return <p>loading...</p>
+      if (error) return <p>Error</p>
+      const { getBlogPost } = data
+      if (!getBlogPost) return <p>No data</p>
+
+      if (getBlogPost) {
+        return (
+          <Card className={classes.card}>
+            <CardHeader
+              avatar={
+                <Avatar aria-label="Recipe" className={classes.avatar}>
+                  {getBlogPost.user.charAt(0)}
+                </Avatar>
+              }
+              action={<IconButton />}
+              title={
+                <Typography variant="headline" component="h2" className={classes.headline}>
+                  {getBlogPost.title}
+                </Typography>
+              }
+              subheader={
+                <div>
+                  <Date>01/02/2018</Date>
+                  <Date>{window.web3.fromWei(getBlogPost.totalTip, 'ether').toFixed(2)} ETH tipped</Date>
+                </div>
+              }
+            />
+            <CardContent>
+              <MarkdownShortcuts content={getBlogPost.content} />
+              {/* <CardMedia
+                className={classes.media}
+                image=" https://material-ui.com/static/images/cards/contemplative-reptile.jpg"
+                title="Contemplative Reptile"
+              /> */}
+              {/* <Typography className={classes.shortContent} component="p">
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Provident cupiditate quasi non quibusdam
+                quisquam reprehenderit nulla alias similique! Corporis quia voluptatem vel maxime ipsa sequi ipsum
+                doloremque tempora quisquam ducimus.
+              </Typography> */}
+            </CardContent>
+            <CardActions>
+              <ViewLink to={`/post/${id}`}>Tip Post</ViewLink>
+              <ViewLink to={`/profile/${getBlogPost.user}`}>View Profile</ViewLink>
+              <IconButton className={classes.share} aria-label="Share">
+                <ShareIcon />
+              </IconButton>
+            </CardActions>
+            <Comments />
+          </Card>
+        )
       }
-      action={<IconButton />}
-      title={
-        <Typography variant="headline" component="h2" className={classes.headline}>
-          Headline 5
-        </Typography>
-      }
-      subheader={<Date>01/02/2018</Date>}
-    />
-    <CardContent>
-      <Typography className={classes.shortContent} component="p">
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Provident cupiditate quasi non quibusdam quisquam
-        reprehenderit nulla alias similique! Corporis quia voluptatem vel maxime ipsa sequi ipsum doloremque tempora
-        quisquam ducimus.
-      </Typography>
-      <CardMedia
-        className={classes.media}
-        image=" https://material-ui.com/static/images/cards/contemplative-reptile.jpg"
-        title="Contemplative Reptile"
-      />
-      <Typography className={classes.shortContent} component="p">
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Provident cupiditate quasi non quibusdam quisquam
-        reprehenderit nulla alias similique! Corporis quia voluptatem vel maxime ipsa sequi ipsum doloremque tempora
-        quisquam ducimus.
-      </Typography>
-    </CardContent>
-    <CardActions>
-      <ViewLink to={`/post/${id}`}>Tip Post</ViewLink>
-      <ViewLink to={`/post/${id}`}>View Profile</ViewLink>
-      <IconButton className={classes.share} aria-label="Share">
-        <ShareIcon />
-      </IconButton>
-    </CardActions>
-    <Comments />
-  </Card>
+    }}
+  </GetBlogPostComponent>
 )
 
 export default withStyles(styles)(PostCard)

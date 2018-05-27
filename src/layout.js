@@ -148,7 +148,7 @@ class Layout extends React.Component {
             <div className={classes.drawerLink}>
               <List>
                 <ListItem>
-                  <ProfileDetails />
+                  <ProfileDetails id={window && window.web3 && window.web3.eth.accounts[0]} />
                 </ListItem>
                 <Divider />
                 <NavLink className={classes.drawerLink} to="/">
@@ -159,7 +159,10 @@ class Layout extends React.Component {
                     <ListItemText primary="Home" />
                   </ListItem>
                 </NavLink>
-                <NavLink className={classes.drawerLink} to="/profile/1">
+                <NavLink
+                  className={classes.drawerLink}
+                  to={`/profile/${window && window.web3 && window.web3.eth.accounts[0]}`}
+                >
                   <ListItem button title="Profile">
                     <ListItemIcon>
                       <Explore />

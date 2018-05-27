@@ -68,6 +68,7 @@ class MarkdownShortcuts extends React.Component {
       <div className="editor">
         <Editor
           // placeholder="Write some markdown..."
+          readOnly={Boolean(this.props.content)}
           value={this.state.value}
           onChange={this.onChange}
           onKeyDown={this.onKeyDown}

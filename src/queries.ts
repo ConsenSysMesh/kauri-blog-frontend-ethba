@@ -40,3 +40,20 @@ export const createNewPost = gql`
     }
   }
 `
+
+export const getBlogPost = gql`
+  query getBlogPost($id: String) {
+    getBlogPost(id: $id) {
+      id
+      title
+      content
+      user
+      contentHash
+      dateCreated
+      dateUpdated
+      status
+      blogName
+      totalTip
+    }
+  }
+`

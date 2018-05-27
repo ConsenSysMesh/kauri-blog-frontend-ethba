@@ -35,7 +35,9 @@ const BlogPosts = () => (
       size: 10,
       sort: 'dateCreated',
       dir: 'DESC',
-      filter: {}
+      filter: {
+        // status_in: ['PUBLISHED']
+      }
     }}
   >
     {({ data, loading, error }) => {
