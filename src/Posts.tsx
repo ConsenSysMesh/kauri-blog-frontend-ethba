@@ -1,7 +1,6 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { Fragment } from 'react'
 import { withStyles } from '@material-ui/core/styles'
-
+import { Query } from 'react-apollo'
 import red from '@material-ui/core/colors/red'
 import styled from 'styled-components'
 import {
@@ -12,6 +11,8 @@ import {
 } from './Comments'
 import Divider from '@material-ui/core/Divider'
 import PostCard from './PostCard'
+import { searchBlogPost } from './queries'
+import { searchBlogPostQuery } from './__generated__/types'
 
 const styles = theme => ({
   card: {
@@ -69,18 +70,44 @@ const PostsDivider = styled(Divider)`
   margin: 20px 0px !important;
 `
 
+class SearchBlogPostComponent extends Query<searchBlogPostQuery> {}
+
 const Posts = ({ classes, id }) => (
   <Container className={classes.card}>
-    <PostsHeader>
-      <PostsHeaderTitle>Posts</PostsHeaderTitle>
-      <NumberOfPosts>4</NumberOfPosts>
-    </PostsHeader>
-    <PostsDivider />
-    <PostsList>
-      <PostCard />
-      <PostCard />
-      <PostCard />
-    </PostsList>
+    <SearchBlogPostComponent
+      query={searchBlogPost}
+      variables={{
+        size: 10,
+        sort: 'dateCreated',
+        dir: 'DESC',
+        filter: {
+          user_id_eq: id
+        }
+      }}
+    >
+      {({ data, loading, error }) => {
+        if (loading) return <p>loading...</p>
+        if (error) return <p>Error</p>
+        const { searchBlogPost } = data
+        if (searchBlogPost && !searchBlogPost.content.length) return <p>No data</p>
+        return (
+          <Fragment>
+            <PostsHeader>
+              <PostsHeaderTitle>Posts</PostsHeaderTitle>
+              <NumberOfPosts>{searchBlogPost.totalElements}</NumberOfPosts>
+            </PostsHeader>
+            <PostsDivider />
+            <PostsList>
+              <div className="Home">
+                {searchBlogPost &&
+                  searchBlogPost.content &&
+                  searchBlogPost.content.map((blogPost, i) => blogPost && <PostCard key={blogPost.id} {...blogPost} />)}
+              </div>
+            </PostsList>
+          </Fragment>
+        )
+      }}
+    </SearchBlogPostComponent>
   </Container>
 )
 

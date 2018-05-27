@@ -9,8 +9,13 @@ import MarkdownShortcuts from './MarkdownEditor'
 import { Typography, Divider } from '@material-ui/core'
 import styled from 'styled-components'
 import { Mutation } from 'react-apollo'
-import { createBlogMutationVariables, createBlogMutation } from './__generated__/types'
-import { createBlog } from './queries'
+import {
+  createBlogMutationVariables,
+  createBlogMutation,
+  savePostMutation,
+  savePostMutationVariables
+} from './__generated__/types'
+import { createBlog, createNewPost, searchBlogPost } from './queries'
 
 const styles = theme => ({
   container: {
@@ -49,6 +54,7 @@ const EditorContainer = styled.section`
 `
 
 class CreateBlogComponent extends Mutation<createBlogMutation, createBlogMutationVariables> {}
+class CreateNewPostComponent extends Mutation<savePostMutation, savePostMutationVariables> {}
 
 class TextFields extends React.Component {
   state = {
@@ -62,27 +68,23 @@ class TextFields extends React.Component {
     })
   }
 
-  handleSubmit = createBlog => (e: MouseEvent) => {
+  handleSubmit = (createBlog, createNewPost) => (e: MouseEvent) => {
     e.preventDefault()
-    console.log(this.state)
+    const { title, blog } = this.state
     createBlog({ variables: { name: window.web3.eth.accounts[0], user: window.web3.eth.accounts[0] } })
       .then(({ data }) => {
-        console.log(data)
+        console.log('create blog', data)
+        createNewPost({ variables: { user: window.web3.eth.accounts[0], title, content: blog } }).then(({ data }) => {
+          console.log('createNewPost', data)
+          window.Blog.submitPost
+            .sendTransaction(data.savePost.id, web3.sha3(data.savePost.contentHash).toString('hex'), {
+              from: window.web3.eth.accounts[0],
+              gas: 250000
+            })
+            .then(transactionId => console.log('transactionId', transactionId))
+        })
       })
       .catch(err => console.error(err))
-    // KauriCore.addRequest.sendTransaction(
-    //   id,
-    //   web3.sha3(content_hash).toString('hex'),
-    //   category,
-    //   Math.floor(dead_line / 1000),
-    //   weiBounty,
-    //   {
-    //     from: web3.eth.accounts[0],
-    //     value: weiBounty,
-    //     gas: 250000,
-    //     gasPrice,
-    //   }
-    // )
   }
 
   render() {
@@ -92,30 +94,62 @@ class TextFields extends React.Component {
       <CreateBlogComponent mutation={createBlog}>
         {(createBlog, { data }) => {
           return (
-            <form className={classes.container} noValidate autoComplete="off">
-              <TextField
-                id="title"
-                label="Title"
-                className={classes.textField}
-                value={this.state.title}
-                onChange={this.handleChange('title')}
-                margin="normal"
-              />
-              <EditorContainer>
-                <Typography>Post</Typography>
-                <MarkdownShortcuts handleChange={this.handleChange('blog')} />
-              </EditorContainer>
-              <Divider />
-              <Button
-                onClick={this.handleSubmit(createBlog)}
-                className={classes.button}
-                variant="raised"
-                color="primary"
-              >
-                Post
-                <Icon className={classes.rightIcon}>send</Icon>
-              </Button>
-            </form>
+            <CreateNewPostComponent
+              mutation={createNewPost}
+              update={(cache, { data: { savePost } }) => {
+                console.log(savePost)
+                try {
+                  const {
+                    searchBlogPost: { content }
+                  } = cache.readQuery({
+                    query: searchBlogPost,
+                    variables: {
+                      page: 0,
+                      size: 10,
+                      sort: 'dateCreated',
+                      dir: 'DESC',
+                      filter: {}
+                    }
+                  })
+                  console.log(content)
+                  cache.writeQuery({
+                    query: searchBlogPost,
+                    data: { content: content.concat([savePost]) }
+                  })
+                } catch (err) {
+                  console.error(err)
+                }
+              }}
+            >
+              {(createNewPost, { data }) => {
+                return (
+                  <form className={classes.container} noValidate autoComplete="off">
+                    <TextField
+                      id="title"
+                      label="Title"
+                      className={classes.textField}
+                      value={this.state.title}
+                      onChange={this.handleChange('title')}
+                      margin="normal"
+                    />
+                    <EditorContainer>
+                      <Typography>Post</Typography>
+                      <MarkdownShortcuts handleChange={this.handleChange('blog')} />
+                    </EditorContainer>
+                    <Divider />
+                    <Button
+                      onClick={this.handleSubmit(createBlog, createNewPost)}
+                      className={classes.button}
+                      variant="raised"
+                      color="primary"
+                    >
+                      Post
+                      <Icon className={classes.rightIcon}>send</Icon>
+                    </Button>
+                  </form>
+                )
+              }}
+            </CreateNewPostComponent>
           )
         }}
       </CreateBlogComponent>

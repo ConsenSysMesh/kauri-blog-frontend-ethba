@@ -94,10 +94,10 @@ const Container = styled.section`
   flex-direction: column;
 `
 
-const Profile = ({ classes, id }) => (
+const Profile = ({ classes, id, match: { params } }) => (
   <Container className={classes.card}>
-    <ProfileDetails type="profile" />
-    <Posts />
+    <ProfileDetails id={params.id} type="profile" />
+    <Posts id={params.id} />
   </Container>
 )
 

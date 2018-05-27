@@ -44,10 +44,10 @@ const BlogPosts = () => (
       const { searchBlogPost } = data
       if (searchBlogPost && !searchBlogPost.content.length) return <p>No data</p>
       return (
-        <div>
+        <div className="Home">
           {searchBlogPost &&
             searchBlogPost.content &&
-            searchBlogPost.content.map((blogPost, i) => blogPost && <PostCard {...blogPost} />)}
+            searchBlogPost.content.map((blogPost, i) => blogPost && <PostCard key={blogPost.id} {...blogPost} />)}
         </div>
       )
     }}
@@ -60,6 +60,7 @@ class Home extends React.Component<WithStyles<'button'>, {}> {
     return (
       <div className="Home">
         <BlogPosts classes={classes} />
+        {/* <PostCard />
         <PostCard />
         <PostCard />
         <PostCard />
@@ -67,8 +68,7 @@ class Home extends React.Component<WithStyles<'button'>, {}> {
         <PostCard />
         <PostCard />
         <PostCard />
-        <PostCard />
-        <PostCard />
+        <PostCard /> */}
       </div>
     )
   }

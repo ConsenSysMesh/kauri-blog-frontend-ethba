@@ -1,17 +1,15 @@
 import gql from 'graphql-tag'
 
 export const searchBlogPost = gql`
-  query searchBlogPost(
-    $page: Int = 0
-    $size: Int = 10
-    $sort: String
-    $dir: DirectionInput
-    $filter: BlogPostFilterInput
-  ) {
-    searchBlogPost(page: $page, size: $size, sort: $sort, dir: $dir, filter: $filter) {
+  query searchBlogPost($page: Int = 0, $size: Int = 50, $dir: DirectionInput, $filter: BlogPostFilterInput) {
+    searchBlogPost(page: $page, size: $size, dir: $dir, filter: $filter) {
+      totalElements
       content {
         id
         title
+        user
+        dateUpdated
+        content
       }
     }
   }
@@ -23,6 +21,22 @@ export const createBlog = gql`
       user
       name
       tipAmount
+    }
+  }
+`
+
+export const createNewPost = gql`
+  mutation savePost($user: String, $title: String, $content: String) {
+    savePost(user: $user, title: $title, content: $content) {
+      id
+      user
+      title
+      content
+      totalTip
+      status
+      contentHash
+      dateCreated
+      dateUpdated
     }
   }
 `

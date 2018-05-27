@@ -19,6 +19,7 @@ import ShareIcon from '@material-ui/icons/Share'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import MoreVertIcon from '@material-ui/icons/MoreVert'
 import styled from 'styled-components'
+import MarkdownShortcuts from './MarkdownEditor'
 
 const styles = theme => ({
   card: {},
@@ -81,30 +82,31 @@ const ViewLink = styled(Link)`
   }
 `
 
-const PostCard = ({ classes, id = 1 }) => (
+const PostCard = ({ classes, id, user, title, dateUpdated, content }) => (
   <Card className={classes.card}>
     <CardHeader
       avatar={
         <Avatar aria-label="Recipe" className={classes.avatar}>
-          A
+          {user && user.charAt(0)}
         </Avatar>
       }
       action={<IconButton />}
       title={
         <Typography variant="headline" component="h2" className={classes.headline}>
-          Headline
+          {title}
         </Typography>
       }
-      subheader={<Date>01/02/2018</Date>}
+      subheader={<Date>{dateUpdated}</Date>}
     />
     <CardContent>
-      <Typography className={classes.shortContent} component="p">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-      </Typography>
+      {/* <Typography className={classes.shortContent} component="p">
+        {content}
+      </Typography> */}
+      <MarkdownShortcuts content={content} />
     </CardContent>
     <CardActions>
       <ViewLink to={`/blogpost/${id}`}>View Post</ViewLink>
-      <ViewLink to={`/profile/${id}`}>View Profile</ViewLink>
+      <ViewLink to={`/profile/${user}`}>View Profile</ViewLink>
     </CardActions>
   </Card>
 )

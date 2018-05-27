@@ -17,8 +17,11 @@ class MarkdownShortcuts extends React.Component {
    * @type {Object}
    */
 
-  state = {
-    value: Value.fromJSON(initialValue)
+  constructor(props) {
+    super(props)
+    this.state = {
+      value: props.content ? Value.fromJSON(JSON.parse(props.content)) : Value.fromJSON(initialValue)
+    }
   }
 
   /**
@@ -64,7 +67,7 @@ class MarkdownShortcuts extends React.Component {
     return (
       <div className="editor">
         <Editor
-          placeholder="Write some markdown..."
+          // placeholder="Write some markdown..."
           value={this.state.value}
           onChange={this.onChange}
           onKeyDown={this.onKeyDown}
@@ -114,7 +117,7 @@ class MarkdownShortcuts extends React.Component {
   onChange = ({ value }) => {
     this.setState({ value })
     // const content = JSON.stringify(value.toJSON())
-    this.props.handleChange({ target: { value: JSON.stringify(value.toJSON()) } })
+    this.props.handleChange && this.props.handleChange({ target: { value: JSON.stringify(value.toJSON()) } })
   }
 
   /**
