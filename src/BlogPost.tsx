@@ -130,9 +130,7 @@ const PostCard = ({
               subheader={
                 <div>
                   <Date>01/02/2018</Date>
-                  <Date>
-                    {global.window && window.web3.fromWei(getBlogPost.totalTip, 'ether').toFixed(2)} ETH tipped
-                  </Date>
+                  <Date>{global.window && window.web3.fromWei(getBlogPost.totalTip, 'ether')} ETH tipped</Date>
                 </div>
               }
             />
